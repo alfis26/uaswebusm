@@ -31,15 +31,20 @@
 <div class="col-lg-8 mx-auto p-4 py-md-5">
   <main>
     <h1 class="text-body-emphasis">Ujian Pemrograman Web</h1>
+    @if(isset($flashdata['notif']) )
+    <div class="alert alert-danger">{{ $flashdata['notif']}}</div>
+    @endif
+    @if(isset($flashdata['update']) )
+    <div class="alert alert-info">{{ $flashdata['update']}}</div>
+    @endif
     <hr class="col-3 col-md-2 mb-5">
-
     <div class="row g-5">
       <div class="col-md-6">
         <h2 class="text-body-emphasis">Tampil Input Data</h2>
         <table class="table">
           <thead class="thead-dark">
             <tr>
-              <td scope="col">#</td>
+              <td scope="col">No</td>
               <td scope="col">Username</td>
               <td scope="col">Email</td>
               <td scope="col">Artikel</td>
@@ -49,20 +54,25 @@
               <td scope="col">Action</td>
             </tr>
           </thead>
+          @foreach ($post_list as $urut => $post)
           <tbody>
             <tr>
-              <td scope="row">-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+              <td scope="row">{{$urut+1}}</td>
+              <td>{{ $post->user->username }}</td>
+              <td>{{ $post->user->email}}</td>
+              <td>{{ $post->article}}</td>
+              <td>{{ $post->jenis }}</td>
+              <td>{{ $post->created_at }}</td>
+              <td>{{ $post->updated_at }}</td>
               <td>
-                <a href="{{ site_url('Welcome/hapus/') }}" class="btn btn-danger">Delete</a>
+                <a href="{{ site_url('Welcome/edit/' . $post->id ) }}" class="btn btn-primary" role="button">Edit</a>
+              </td>
+              <td>
+                <a href="{{ site_url('Welcome/hapus/' . $post->id ) }}" class="btn btn-danger" role="button">Delete</a>
               </td>
             </tr>
           </tbody>
+          @endforeach
         </table>
         <a href="{{ site_url('Welcome/index') }}" class="btn btn-success">Tambah</a>
       </div>

@@ -93,8 +93,8 @@ $db['default'] = [
     'db_debug' => (ENVIRONMENT !== 'production'),
     'cache_on' => false,
     'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
+    'char_set' => 'utf8mb4',
+    'dbcollat' => 'utf8mb4_general_ci',
     'swap_pre' => '',
     'encrypt' => false,
     'compress' => false,
@@ -113,7 +113,7 @@ $capsule->addConnection([
     'password' => $_ENV['DB_PASSWORD'],
     'port' => $_ENV['DB_PORT'],
     'charset' => 'utf8mb4',
-    'collation' => 'utf8mb4_unicode_ci',
+    'collation' => 'utf8mb4_general_ci',
     'prefix' => '',
 ]);
 

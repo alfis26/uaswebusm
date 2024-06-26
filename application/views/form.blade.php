@@ -33,6 +33,12 @@
       <div class="col-md-6">
         <h2 class="text-body-emphasis">Form Input Artikel</h2>
         <p>Masukan data yang akan di proses</p>
+        @if(isset($flashdata['notif']))
+        <div class="alert alert-info">{{ $flashdata['notif']}}</div>
+        @endif
+        @if(isset($flashdata['error']))
+        <div class="alert alert-danger">{{ $flashdata['error']}}</div>
+        @endif
         <form method="post" action="{{ site_url('Welcome/simpan') }}">
           <!-- username section -->
             <div class="mb-3">

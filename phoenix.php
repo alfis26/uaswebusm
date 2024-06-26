@@ -18,7 +18,7 @@ return [
             'password' => $_ENV['DB_PASSWORD'],
             'db_name' => $_ENV['DB_NAME'],
             'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci', // optional, if not set default collation for utf8mb4 is used
+            'collation' => 'utf8mb4_general_ci', // optional, if not set default collation for utf8mb4 is used
         ],
         'production' => [
             'adapter' => 'mysql',

@@ -41,22 +41,39 @@ class Welcome extends CI_Controller
     public function index()
     {
         $user = User::all();
-        $this->_createView('form', ['user_list' => $user]);
+        $flashdata = $this->session->flashdata();
+
+        $this->_createView('form', ['user_list' => $user, 'flashdata' => $flashdata]);
     }
 
     public function simpan()
-    {
-        
+    {   
         if ($this->input->post()){
+            $id = $this->input->post('user_id');
+            $jenis = $this->input->post('radio');
+            $article = $this->input->post('article');
 
+            if($article == '' || $jenis == '' || $id == ''){
+                $this->session->set_flashdata('error', 'Form tidak boleh kosong');
+            }else{
+                $post = new Post();
+                $post->user_id = $id;
+                $post->jenis = $jenis;
+                $post->article = $article;
+                $post->save();
+
+                $this->session->set_flashdata('notif', 'Data Berhasil Disimpan');
+            }
         }
-
         redirect('Welcome/index');
     }
 
     public function hapus($id)
     {
-        
+        $post = Post::find($id);
+        $post->delete();
+
+        $this->session->set_flashdata('notif', 'Data Berhasil Dihapus');
         redirect('Welcome/tampil');
     }
 
@@ -64,7 +81,7 @@ class Welcome extends CI_Controller
     {
         $post = Post::find($id);
         $users = User::all();
-
+        
         $jenis = 0;
         if($post->jenis == 'Berita') $jenis = 0;
         else if($post->jenis == 'Tutorial') $jenis = 1;
@@ -82,6 +99,7 @@ class Welcome extends CI_Controller
 
         $post->save();
 
+        $this->session->set_flashdata('update', 'Data Berhasil Diupdate');
         redirect('Welcome/tampil');
     }
 
@@ -90,6 +108,8 @@ class Welcome extends CI_Controller
     {
         $post_list = Post::all();
 
-        $this->_createView('tampil', ['post_list' => $post_list]);
+        $flashdata = $this->session->flashdata();
+
+        $this->_createView('tampil', ['post_list' => $post_list, 'flashdata' => $flashdata]);
     }
 }

@@ -21,7 +21,7 @@ final class FirstInit extends AbstractMigration
 
         $this->table('post')
             ->addColumn('id', 'integer', ['autoincrement' => true])
-            ->addColumn('user_id', 'integer')
+            ->addColumn('user_id', 'integer') 
             ->addColumn('article', 'string')
             ->addColumn('jenis', 'string')
             ->addColumn('created_at', 'datetime')
